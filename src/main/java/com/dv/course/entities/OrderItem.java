@@ -1,6 +1,7 @@
 package com.dv.course.entities;
 
 import com.dv.course.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Table(name = "tb_order_item")
 public class OrderItem {
     @EmbeddedId
-    private OrderItemPK id;
+    private final OrderItemPK id = new OrderItemPK();
     private Integer quantity;
     private Double price;
 
@@ -25,6 +26,7 @@ public class OrderItem {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }

@@ -1,14 +1,8 @@
 package com.dv.course.config;
 
-import com.dv.course.entities.Category;
-import com.dv.course.entities.Order;
-import com.dv.course.entities.Product;
-import com.dv.course.entities.User;
+import com.dv.course.entities.*;
 import com.dv.course.entities.enuns.OrderStatus;
-import com.dv.course.repositories.CategoryRepository;
-import com.dv.course.repositories.OrderRespository;
-import com.dv.course.repositories.ProductsRepository;
-import com.dv.course.repositories.UserRepository;
+import com.dv.course.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,8 @@ public class TestConfiguration implements CommandLineRunner {
 
     @Autowired
     private ProductsRepository productsRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
     @Override
     public void run(String... args) throws Exception {
         User user1 = new User("Jhon Tompson","tom@gmail.com","2345-2299","xxxxx");
@@ -64,5 +60,12 @@ public class TestConfiguration implements CommandLineRunner {
         orderRespository.saveAll(Arrays.asList(order1,order2,order3));
         categoryRepository.saveAll(Arrays.asList(category1,category2,category3,category4));
         productsRepository.saveAll(Arrays.asList(p1,p2,p3,p4));
+
+        OrderItem orderItem1 = new OrderItem(order1,p1,2, p1.getPrice());
+        OrderItem orderItem2 = new OrderItem(order2,p2,1,p2.getPrice());
+        OrderItem orderItem3 = new OrderItem(order3,p3,10,p3.getPrice());
+        OrderItem orderItem4 = new OrderItem(order1,p1,1,p1.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(orderItem1,orderItem2,orderItem3,orderItem4));
     }
 }
