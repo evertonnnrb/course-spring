@@ -69,7 +69,7 @@ public class Order {
         return OrderStatus.valueOf(orderStatus);
     }
 
-    public Set<OrderItem> getItens(){
+    public Set<OrderItem> getItens() {
         return itens;
     }
 
@@ -92,6 +92,14 @@ public class Order {
         if (o == null || getClass() != o.getClass()) return false;
         Order order = (Order) o;
         return Objects.equals(id, order.id);
+    }
+
+    public Double getTotal() {
+        double sum = 0.0;
+        for (OrderItem i : itens) {
+            sum += i.getSubTotal();
+        }
+        return sum;
     }
 
     @Override
